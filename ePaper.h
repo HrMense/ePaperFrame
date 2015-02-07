@@ -24,7 +24,7 @@
 #ifndef __EPAPER_H__
 #define __EPAPER_H__
 
-#include "SD.h"
+//#include "SD.h"
 #include "spi.h"
 #include "EPD.h"
 

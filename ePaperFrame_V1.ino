@@ -1,72 +1,118 @@
-/*-------------------------------------------------------------------------------------------
-  demo of ePaper Shield for drawing, such as draw a line, draw a circle...
+// Copyright 2013 WyoLum, LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at:
+//
+//   http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+// express or implied.  See the License for the specific language
+// governing permissions and limitations under the License.
 
-  loovee
-  2013-7-10
 
-  note: if you use an Arduin UNO, Seeeduino 3.0 (any board that use Atmega 328P or 32U4)
-        you should insert an SD card if you want to use this demo
-        when you use an Arduino Mega(any board that use Atmega1280 or Atmega2560), you neen't
-        insert an SD card for this demo
--------------------------------------------------------------------------------------------*/
-
-#include "ePaper.h"
+#include "application.h"
+#include "inttypes.h"
+#include "ctype.h"
 #include "spi.h"
-#include "SD.h"
-#include "GT20L16_drive.h"
+//#include "SD.h"
+#include "EPD.h"
+//#include "S5813A.h"
+#include "EReader.h"
 
-#define SCREEN_SIZE 270                     // choose screen size here: 144, 200, 270
+uint16_t UNICODE_MSG[11] = {25105, 20204, 29233, 30717, 36882, 31185, 25216, 0};
 
-#if (SCREEN_SIZE == 144)
-#define EPD_SIZE    EPD_1_44
-
-#elif (SCREEN_SIZE == 200)
-#define EPD_SIZE    EPD_2_0
-
-#elif (SCREEN_SIZE == 270)
-#define EPD_SIZE    EPD_2_7
-
-#else
-#error "Unknown EPB size: Change the #define SCREEN_SIZE to a supported value"
-#endif
-
-void setup()
-{
-    EPAPER.begin(EPD_SIZE);                             // setup epaper, size
-    EPAPER.setDirection(DIRNORMAL);                     // set display direction
-
-    eSD.begin(EPD_SIZE);
-    GT20L16.begin();                                    // init GT20L16, a font chip
-
-    EPAPER.drawRectangle(10, 10, 100, 80);
-    EPAPER.fillCircle(50, 50, 30);
-    EPAPER.fillRectangle(50, 65, 50, 20);
-
-    EPAPER.drawCircle(150, 50, 25);
-    EPAPER.drawCircle(150, 50, 20);
-    EPAPER.drawCircle(150, 50, 15);
-    EPAPER.drawCircle(150, 50, 10);
-    EPAPER.fillCircle(150, 50, 5);
-
-    EPAPER.drawHorizontalLine(120, 50, 60);
-    EPAPER.drawVerticalLine(150, 20, 60);
-
-    EPAPER.display();                                   // display, you can use this function
-
-
-    delay(1000);
-    EPAPER.clear_sd();                                  // clear sd card data(when use display next time, display is clear)
-    EPAPER.drawString("all clean!", 10, 10);
-
-    EPAPER.display();
-
+// I/O setup
+void setup() {
+  Serial.begin(115200);
+  Serial.println("WyoLum, LLC 2013");
+  Serial.println("Buy Open Source!!");
+  Serial.print("SD Chip Select PIN: ");
+  Serial.println(SD_CS, DEC);
+  ereader.setup(EPD_2_7);
 }
 
-void loop()
-{
-    // add code here
-}
 
-/*********************************************************************************************************
-  END FILE
-*********************************************************************************************************/
+// main loop
+unsigned long int loop_count = 0;
+
+void loop() {
+  Serial.println("start of loop()");
+  if(loop_count % 4 == 0){
+    for(int i=0; i < 264; i+=8){
+      for(int j=0; j < 176; j+=8){
+  ereader.setpix(i, j, true);
+      }
+    }
+    // ereader.draw_box(0, 0, 7, 7, true, true);
+    ereader.draw_line(0, 0, 4, 4, true);
+
+    ereader.setpix(10, 10, true);
+    int x = 0, y = 0;
+    for(int i=0; i < 20; i++){
+
+      //               0  0           8         8  // first run
+      ereader.draw_box(x    ,     x, x + 8 + i    , x + 8 + i    , true, true);
+      //                   1      1              7              7  // first run
+      ereader.draw_box(x + 1, x + 1, x + 8 + i - 1, x + 8 + i - 1, false, true);
+      x += 8 + i;
+    }
+    x = 20;
+    for(int y=0; y < 176;){
+      ereader.draw_box(x, y, x + 8, y + 8, true, true);
+      ereader.draw_box(x + 1, y + 1, x + 8 - 1, y + 8 - 1, false, true);
+      x += 8;
+      y += 8;
+    }
+    x = 39;
+    for(int y=0; y < 176;){
+      ereader.draw_box(    x,     y, x + 8    , y + 8    , true, true);
+      ereader.draw_box(x + 1, y + 1, x + 8 - 1, y + 8 - 1, false, true);
+      x += 9;
+      y += 9;
+    }
+    x = 48;
+    for(int y=0; y < 176;){
+      ereader.draw_box(    x,     y, x + 8    , y + 8    , true, true);
+      ereader.draw_box(x + 1, y + 1, x + 8 - 1, y + 8 - 1, false, true);
+      x += 10;
+      y += 10;
+    }
+    x = 59;
+    for(int y=0; y < 176;){
+      ereader.draw_box(    x,     y, x + 9    , y + 9    , true, true);
+      // ereader.draw_box(x + 1, y + 1, x + 8 - 1, y + 8 - 1, false, true);
+      x += 11;
+      y += 11;
+    }
+ }
+  else if(loop_count % 4 == 1){
+    ereader.display_wif("/IMAGES/WYOLUM.WIF", 0, 0);
+    ereader.put_unicode(30, 40, UNICODE_MSG, true);
+  }
+  else if(loop_count % 4 == 2){
+    ereader.display_wif("/IMAGES/LENA.WIF", 0, 0);
+  }
+  else{
+    ereader.display_wif("/IMAGES/AANDJ.WIF", -264 / 2,  176 / 2);
+    ereader.display_wif("/IMAGES/AANDJ.WIF",  264 / 2, -176 / 2);
+    ereader.display_wif("/IMAGES/CAT_SM.WIF", 264 / 2, 176 / 2);
+    ereader.display_wif("/IMAGES/APHRODIT.WIF", 0, 0);
+    ereader.toggle_ellipse(random(0, 264), random(0, 176), 20, 20, false);
+    ereader.put_ascii(random(0, 200), random(16, 150), "WyoLum ROCKS!!", true);
+    ereader.put_ascii(random(0, 200), random(16, 16), "WyoLum ROCKS!!", true);
+    for(uint8_t yy=0; yy < 6; yy++){
+      ereader.setpix(128, yy, true); // draw some pixels
+    }
+    ereader.put_unicode(10, 140, UNICODE_MSG, true);
+    ereader.toggle_line(70, 0, 120, 50);
+  }
+
+  loop_count++;
+  ereader.show();
+  // while(1)
+  ereader.sleep(4000); // allows EPD to power off gracefully
+  ereader.wake();
+}
