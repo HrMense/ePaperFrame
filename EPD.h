@@ -16,7 +16,7 @@
 #define EPD_H 1
 
 //#include <Arduino.h>
-#include "spark_wiring_spi.h"
+#include <spark_wiring_spi.h>
 
 
 typedef enum {
@@ -112,7 +112,7 @@ public:
 	// single line display - very low-level
 	// also has to handle AVR progmem
 	void line(uint16_t line, const uint8_t *data, uint8_t fixed_value, bool read_progmem, EPD_stage stage);
-
+	
 	// default constructor
 	EPD_Class();
 
@@ -130,3 +130,5 @@ public:
 };
 
 #endif
+
+

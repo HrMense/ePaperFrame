@@ -12,12 +12,13 @@
 // express or implied.  See the License for the specific language
 // governing permissions and limitations under the License.
 
-
 #include "application.h"
-#include "inttypes.h"
-#include "ctype.h"
-#include "spi.h"
+#include <inttypes.h>
+#include <ctype.h>
+
+#include <spi.h>
 //#include "SD.h"
+#include "sd-card-library.h"
 #include "EPD.h"
 //#include "S5813A.h"
 #include "EReader.h"
@@ -43,7 +44,7 @@ void loop() {
   if(loop_count % 4 == 0){
     for(int i=0; i < 264; i+=8){
       for(int j=0; j < 176; j+=8){
-  ereader.setpix(i, j, true);
+	ereader.setpix(i, j, true);
       }
     }
     // ereader.draw_box(0, 0, 7, 7, true, true);
@@ -102,7 +103,7 @@ void loop() {
     ereader.display_wif("/IMAGES/APHRODIT.WIF", 0, 0);
     ereader.toggle_ellipse(random(0, 264), random(0, 176), 20, 20, false);
     ereader.put_ascii(random(0, 200), random(16, 150), "WyoLum ROCKS!!", true);
-    ereader.put_ascii(random(0, 200), random(16, 16), "WyoLum ROCKS!!", true);
+    //ereader.put_bigascii(random(0, 200), random(16, 16), "WyoLum ROCKS!!", true);
     for(uint8_t yy=0; yy < 6; yy++){
       ereader.setpix(128, yy, true); // draw some pixels
     }

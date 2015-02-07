@@ -62,7 +62,7 @@ uint8_t const O_WRONLY = O_WRITE;
 uint8_t const O_RDWR = (O_READ | O_WRITE);
 /** open() oflag mask for access modes */
 uint8_t const O_ACCMODE = (O_READ | O_WRITE);
-/** The seek offset shall be set to the end of the file prior to each write. */
+/** The file offset shall be set to the end of the file prior to each write. */
 uint8_t const O_APPEND = 0X04;
 /** synchronous writes - call sync() after each write */
 uint8_t const O_SYNC = 0X08;
