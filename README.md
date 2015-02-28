@@ -4,9 +4,9 @@ Trying to get this running:
 - Hook up a Spark Core to a Seeedstudio ePaper panel
 - Push data to Spark or make Spark pull data from e.g. dropbox to be displayed 
 
-I connected the Seeedstudio ePaper panel to the Spark Core like this:
+I connected the Seeedstudio ePaper shield and the panel to the Spark Core like this:
 
-| ePaper shield (Seeedstudio) | Spark Core | ePaper display
+| ePaper shield (Seeedstudio) | Spark Core | ePaper panel
 |----------|--------|------
 | D2 | D2 |	M_EPD_PANEL_ON 
 | D3 | D3 | M_EPD_BORDER 
