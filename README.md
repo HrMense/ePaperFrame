@@ -22,7 +22,7 @@ I connected the Seeedstudio ePaper panel to the Spark Core like this:
 | A2 | n/a | M_CKV
 | A3 | A6 | M_STV_IN
 | M_MOSI | A5 | n/a
-| M_SCK | A3 | n/a
+| M_SCK/CLK | A3 | n/a
 | M_MISO | A4 | n/a
 | GND | GND | n/a
 | 3.3V | ext. 3.3V | M_VCC_3V3
