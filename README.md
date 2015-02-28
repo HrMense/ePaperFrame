@@ -6,7 +6,7 @@ Trying to get this running:
 
 I connected the Seeedstudio ePaper panel to the Spark Core like this:
 
-| ePaper panel (Arduino) | Spark Core | E-paper
+| ePaper shield (Seeedstudio) | Spark Core | ePaper display
 |----------|--------|------
 | D2 | D2 |	M_EPD_PANEL_ON 
 | D3 | D3 | M_EPD_BORDER 
