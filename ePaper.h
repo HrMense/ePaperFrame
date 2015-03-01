@@ -29,7 +29,7 @@
 //#include <SD.h>
 #include "sd-card-library.h"
 #include "spark_wiring_spi.h"
-//#include <SPI.h>
+#include "spi.h"
 #include "EPD.h"
 
 #include "sd_epaper.h"
