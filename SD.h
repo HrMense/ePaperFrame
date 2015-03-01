@@ -15,9 +15,7 @@
 #define __SD_H__
 
 #include "application.h"
-//#include <SdFat.h>
-#include "sd-fat.h">
-//#include <SdFatUtil.h>
+#include "sd-fat.h"
 #include "sd-fat-util.h"
 
 #define FILE_READ O_READ
