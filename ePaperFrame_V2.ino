@@ -13,7 +13,8 @@
 #include "application.h"
 #include "ePaper.h"
 #include "spi.h"
-#include "sd-card-library.h"
+#include "spark_wiring_spi.h"
+#include "SD.h"
 #include "GT20L16_drive.h"
 
 #define SCREEN_SIZE 270                     // choose screen size here: 144, 200, 270

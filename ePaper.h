@@ -26,8 +26,8 @@
 #ifndef __EPAPER_H__
 #define __EPAPER_H__
 
-//#include <SD.h>
-#include "sd-card-library.h"
+#include "SD.h"
+//#include "sd-card-library.h"
 #include "spark_wiring_spi.h"
 #include "spi.h"
 #include "EPD.h"
