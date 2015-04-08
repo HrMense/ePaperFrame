@@ -15,7 +15,7 @@ I connected the Seeedstudio ePaper shield and the panel to the Spark Core like t
 | D6 | D6 | M_EPD_/RESET 
 | D7 | D7 | M_EPD_BUSY 
 | D8 | D4 | M_EPD_DISCHARGE
-| D9 | n/a | M_/WORD_STOCK_CS
+| D9 | D1 | M_/WORD_STOCK_CS
 | D10 | D0 | M_/EPD_CS
 | A0 | A0 | M_TEMP_SEN
 | A1 | D5 | M_OE123
